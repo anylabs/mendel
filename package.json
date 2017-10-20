@@ -1,6 +1,6 @@
 {
   "name": "@progressivelabs/mendel",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Postgres migrations for Node",
   "bin": {
     "mendel": "./bin/mendel"
