@@ -1,6 +1,6 @@
 {
   "name": "@progressivelabs/mendel",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Postgres migrations for Node",
   "main": "index.js",
   "peerDependencies": {
