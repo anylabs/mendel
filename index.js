@@ -9,7 +9,7 @@ process.on("unhandledRejection", reason => {
 
 const client = new Client(process.env.DATABASE_URL)
 const completed = []
-const dir = path.resolve(__dirname)
+const dir = path.resolve(__dirname).split("/node_modules")[0] + "/migrations"
 
 migrate()
 
