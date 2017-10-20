@@ -1,0 +1,30 @@
+{
+  "name": "mendel",
+  "version": "1.0.0",
+  "description": "Postgres migrations for Node",
+  "main": "index.js",
+  "peerDependencies": {
+    "pg": "^7.3.0"
+  },
+  "homepage": "https://github.com/progressivelabs/mendel",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/progressivelabs/mendel.git"
+  },
+  "keywords": [
+    "migrations",
+    "migration",
+    "postgres",
+    "pg",
+    "sql",
+    "database"
+  ],
+  "author": "Progressive Labs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/progressivelabs/mendel/issues"
+  },
+  "engines": {
+    "node": ">= 8.5.0"
+  }
+}
