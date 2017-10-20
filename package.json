@@ -1,5 +1,5 @@
 {
-  "name": "mendel",
+  "name": "@progressivelabs/mendel",
   "version": "1.0.0",
   "description": "Postgres migrations for Node",
   "main": "index.js",
