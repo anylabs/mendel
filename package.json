@@ -1,6 +1,6 @@
 {
   "name": "@progressivelabs/mendel",
-  "version": "1.4.0",
+  "version": "0.0.0-development",
   "description": "Postgres migrations for Node",
   "bin": {
     "mendel": "./bin/mendel"
@@ -11,7 +11,7 @@
   "homepage": "https://github.com/progressivelabs/mendel",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/progressivelabs/mendel.git"
+    "url": "https://github.com/progressivelabs/mendel.git"
   },
   "keywords": [
     "migrations",
@@ -28,5 +28,21 @@
   },
   "engines": {
     "node": ">= 8.5.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint lib/**/*.ts",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.33",
+    "@types/pg": "^7.1.1",
+    "eslint": "^4.6.1",
+    "eslint-plugin-prettier": "^2.2.0",
+    "eslint-plugin-typescript": "^0.8.0",
+    "prettier": "^1.7.4",
+    "semantic-release": "^8.2.0",
+    "typescript": "^2.5.2",
+    "typescript-eslint-parser": "^8.0.0"
   }
 }

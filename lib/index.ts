@@ -1,17 +1,19 @@
-const { Client } = require("pg")
-const fs = require("fs")
-const path = require("path")
+import { Client } from "pg"
+import * as fs from "fs"
+import * as path from "path"
+import Logger from "./logger"
 
 process.on("unhandledRejection", reason => {
   console.error(reason)
   process.exit(1)
 })
 
-const client = new Client(process.env.DATABASE_URL)
-const completed = []
+const client = new Client({ connectionString: process.env.DATABASE_URL })
+const completed: number[] = []
 const dir = path.resolve(__dirname).split("node_modules")[0] + "migrations"
+const logger = new Logger()
 
-async function migrate() {
+export default async function migrate() {
   await client.connect()
 
   try {
@@ -19,10 +21,10 @@ async function migrate() {
     await getAdvisoryLock()
     await createMigrationsTable()
 
-    const currentVersion = await getCurrentVersion()
-    const migrations = await loadMigrations(currentVersion)
+    const current = await getCurrentVersion()
+    const migrations = await loadMigrations(current)
 
-    await executeMigrations(migrations, currentVersion)
+    await executeMigrations(migrations, current)
     await addCompletedMigrations()
     await client.query("COMMIT")
   } catch (e) {
@@ -57,11 +59,11 @@ async function createMigrationsTable() {
   logger.complete()
 }
 
-async function loadMigrations(currentVersion) {
+async function loadMigrations(current: number) {
   logger.start("Loading migrations")
 
   const all = await getAllMigrations()
-  const migrations = all.filter(({ version }) => version > currentVersion)
+  const migrations = all.filter(({ version }) => version > current)
 
   logger.log("Found %s new migrations", migrations.length)
   logger.complete()
@@ -69,7 +71,7 @@ async function loadMigrations(currentVersion) {
   return migrations
 }
 
-async function getCurrentVersion() {
+async function getCurrentVersion(): Promise<number> {
   const result = await client.query(`
     SELECT version FROM migrations
     ORDER BY version DESC
@@ -83,13 +85,13 @@ async function getCurrentVersion() {
   return version
 }
 
-function getAllMigrations() {
+function getAllMigrations(): Promise<Migration[]> {
   return new Promise(function(resolve, reject) {
     fs.readdir(dir, function(error, files) {
       if (error) {
         reject(error)
       } else {
-        const sqlFiles = files
+        const migrations = files
           .filter(file => path.extname(file) === ".sql")
           .map(file => ({
             file,
@@ -97,14 +99,19 @@ function getAllMigrations() {
           }))
           .sort((a, b) => (a.version < b.version ? -1 : 1))
 
-        logger.log("Found %s migration files", sqlFiles.length)
-        resolve(sqlFiles)
+        logger.log("Found %s migration files", migrations.length)
+        resolve(migrations)
       }
     })
   })
 }
 
-async function executeMigrations(migrations, currentVersion) {
+type Migration = {
+  file: string
+  version: number
+}
+
+async function executeMigrations(migrations: Migration[], current: number) {
   if (!migrations.length) {
     return
   }
@@ -112,7 +119,7 @@ async function executeMigrations(migrations, currentVersion) {
   logger.start("Executing migrations")
 
   for (const migration of migrations) {
-    ensureExpectedVersion(migration, currentVersion)
+    ensureExpectedVersion(migration, current)
     await executeMigration(migration)
   }
 
@@ -120,8 +127,8 @@ async function executeMigrations(migrations, currentVersion) {
   logger.complete()
 }
 
-function ensureExpectedVersion(migration, currentVersion) {
-  const previousVersion = completed[completed.length - 1] || currentVersion
+function ensureExpectedVersion(migration: Migration, current: number) {
+  const previousVersion = completed[completed.length - 1] || current
   const expectedVersion = previousVersion + 1
 
   if (migration.version != expectedVersion) {
@@ -130,7 +137,7 @@ function ensureExpectedVersion(migration, currentVersion) {
   }
 }
 
-async function executeMigration(migration) {
+async function executeMigration(migration: Migration) {
   const start = new Date()
 
   try {
@@ -138,7 +145,11 @@ async function executeMigration(migration) {
 
     await client.query(query)
     completed.push(migration.version)
-    logger.log("%s completed in %sms", migration.file, new Date() - start)
+    logger.log(
+      "%s completed in %sms",
+      migration.file,
+      new Date().getTime() - start.getTime(),
+    )
   } catch (e) {
     logger.log("%s failed with error '%s'.", name, e.message)
     process.exit(1)
@@ -155,21 +166,3 @@ async function addCompletedMigrations() {
 
   await client.query(query)
 }
-
-const logger = {
-  start(text) {
-    console.log("-----> " + text)
-    this.current = new Date()
-  },
-
-  log(text, ...args) {
-    console.log("       " + text, ...args)
-  },
-
-  complete() {
-    console.log(`       Done in ${new Date() - this.current}ms\n`)
-    this.current = null
-  },
-}
-
-module.exports = migrate
