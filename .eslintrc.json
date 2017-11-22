@@ -10,7 +10,8 @@
       {
         "parser": "typescript",
         "semi": false,
-        "trailingComma": "all"
+        "trailingComma": "all",
+        "printWidth": 120
       }
     ]
   }

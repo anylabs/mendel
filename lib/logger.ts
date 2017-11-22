@@ -15,9 +15,7 @@ export default class Logger {
       return
     }
 
-    console.log(
-      `       Done in ${new Date().getTime() - this.current.getTime()}ms\n`,
-    )
+    console.log(`       Done in ${new Date().getTime() - this.current.getTime()}ms\n`)
 
     this.current = null
   }
