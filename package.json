@@ -27,7 +27,7 @@
     "url": "https://github.com/anylabs/mendel/issues"
   },
   "engines": {
-    "node": ">= 8.5.0"
+    "node": ">= 8.9.1"
   },
   "scripts": {
     "build": "tsc",
