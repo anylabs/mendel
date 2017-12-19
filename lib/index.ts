@@ -133,7 +133,8 @@ function ensureExpectedVersion(migration: Migration, current: number) {
 
   if (migration.version != expectedVersion) {
     throw Error(`
-      Cannot migrate from version '${previousVersion}' to '${migration.version}' (expected next version to be '${expectedVersion}')`)
+      Cannot migrate from version '${previousVersion}' to '${migration.version}' 
+      (expected next version to be '${expectedVersion}')`)
   }
 }
 

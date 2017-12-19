@@ -1,5 +1,5 @@
 export default class Logger {
-  current: Date | null
+  current: Date | null = null
 
   start(text: string) {
     console.log("-----> " + text)
@@ -15,7 +15,9 @@ export default class Logger {
       return
     }
 
-    console.log(`       Done in ${new Date().getTime() - this.current.getTime()}ms\n`)
+    console.log(
+      `       Done in ${new Date().getTime() - this.current.getTime()}ms\n`,
+    )
 
     this.current = null
   }
