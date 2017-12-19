@@ -35,12 +35,12 @@
     "semantic-release": "semantic-release pre && npm publish --access public && semantic-release post"
   },
   "devDependencies": {
-    "@types/node": "^8.0.33",
-    "@types/pg": "^7.1.1",
-    "prettier": "^1.7.4",
+    "@types/node": "^8.5.1",
+    "@types/pg": "^7.4.1",
+    "prettier": "^1.9.2",
     "semantic-release": "^8.2.0",
     "tslint": "^5.8.0",
     "tslint-config-prettier": "^1.6.0",
-    "typescript": "^2.5.2"
+    "typescript": "^2.6.2"
   }
 }
