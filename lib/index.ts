@@ -151,7 +151,7 @@ async function executeMigration(migration: Migration) {
       new Date().getTime() - start.getTime(),
     )
   } catch (e) {
-    logger.log("%s failed with error '%s'.", name, e.message)
+    logger.log("%s failed with error '%s'.", migration.file, e.message)
     process.exit(1)
   }
 }
