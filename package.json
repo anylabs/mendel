@@ -21,7 +21,7 @@
     "sql",
     "database"
   ],
-  "author": "AnyLabs (https://beta.anylabs.co/)",
+  "author": "Anylabs (https://anylabs.co)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/anylabs/mendel/issues"
@@ -31,18 +31,16 @@
   },
   "scripts": {
     "build": "tsc",
-    "lint": "eslint lib/**/*.ts",
+    "lint": "tslint lib/**/*.ts",
     "semantic-release": "semantic-release pre && npm publish --access public && semantic-release post"
   },
   "devDependencies": {
     "@types/node": "^8.0.33",
     "@types/pg": "^7.1.1",
-    "eslint": "^4.6.1",
-    "eslint-plugin-prettier": "^2.2.0",
-    "eslint-plugin-typescript": "^0.8.0",
     "prettier": "^1.7.4",
     "semantic-release": "^8.2.0",
-    "typescript": "^2.5.2",
-    "typescript-eslint-parser": "^8.0.0"
+    "tslint": "^5.8.0",
+    "tslint-config-prettier": "^1.6.0",
+    "typescript": "^2.5.2"
   }
 }

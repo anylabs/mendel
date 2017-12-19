@@ -1,6 +1,6 @@
-import { Client } from "pg"
 import * as fs from "fs"
 import * as path from "path"
+import { Client } from "pg"
 import Logger from "./logger"
 
 process.on("unhandledRejection", reason => {
@@ -86,8 +86,8 @@ async function getCurrentVersion(): Promise<number> {
 }
 
 function getAllMigrations(): Promise<Migration[]> {
-  return new Promise(function(resolve, reject) {
-    fs.readdir(dir, function(error, files) {
+  return new Promise((resolve, reject) => {
+    fs.readdir(dir, (error, files) => {
       if (error) {
         reject(error)
       } else {
@@ -131,10 +131,10 @@ function ensureExpectedVersion(migration: Migration, current: number) {
   const previousVersion = completed[completed.length - 1] || current
   const expectedVersion = previousVersion + 1
 
-  if (migration.version != expectedVersion) {
-    throw Error(`
-      Cannot migrate from version '${previousVersion}' to '${migration.version}' 
-      (expected next version to be '${expectedVersion}')`)
+  if (migration.version !== expectedVersion) {
+    throw Error(
+      `Cannot migrate from version '${previousVersion}' to '${migration.version}' (expected next version to be '${expectedVersion}')`,
+    )
   }
 }
 
