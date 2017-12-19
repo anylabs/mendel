@@ -133,7 +133,9 @@ function ensureExpectedVersion(migration: Migration, current: number) {
 
   if (migration.version != expectedVersion) {
     throw Error(`
-      Cannot migrate from version '${previousVersion}' to '${migration.version}' (expected next version to be '${expectedVersion}')`)
+      Cannot migrate from version '${previousVersion}' to '${migration.version}' (expected next version to be '${
+      expectedVersion
+    }')`)
   }
 }
 
@@ -145,11 +147,7 @@ async function executeMigration(migration: Migration) {
 
     await client.query(query)
     completed.push(migration.version)
-    logger.log(
-      "%s completed in %sms",
-      migration.file,
-      new Date().getTime() - start.getTime(),
-    )
+    logger.log("%s completed in %sms", migration.file, new Date().getTime() - start.getTime())
   } catch (e) {
     logger.log("%s failed with error '%s'.", migration.file, e.message)
     process.exit(1)

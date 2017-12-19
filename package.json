@@ -1,5 +1,5 @@
 {
-  "name": "@progressivelabs/mendel",
+  "name": "@anylabs/mendel",
   "version": "0.0.0-development",
   "description": "Postgres migrations for Node",
   "bin": {
@@ -8,10 +8,10 @@
   "peerDependencies": {
     "pg": "^7.3.0"
   },
-  "homepage": "https://github.com/progressivelabs/mendel",
+  "homepage": "https://github.com/anylabs/mendel",
   "repository": {
     "type": "git",
-    "url": "https://github.com/progressivelabs/mendel.git"
+    "url": "https://github.com/anylabs/mendel.git"
   },
   "keywords": [
     "migrations",
@@ -21,18 +21,18 @@
     "sql",
     "database"
   ],
-  "author": "Progressive Labs",
+  "author": "AnyLabs (https://beta.anylabs.co/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/progressivelabs/mendel/issues"
+    "url": "https://github.com/anylabs/mendel/issues"
   },
   "engines": {
-    "node": ">= 8.5.0"
+    "node": ">= 8.9.1"
   },
   "scripts": {
     "build": "tsc",
     "lint": "eslint lib/**/*.ts",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish --access public && semantic-release post"
   },
   "devDependencies": {
     "@types/node": "^8.0.33",
