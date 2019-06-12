@@ -33,7 +33,7 @@ npm run migrations
 ## Support
 
 Mendel is free software. If you encounter a bug with the library please open an
-issue on the [github repo](https://github.com/anylabs/mendel). If you have
+issue on the [Github repository](https://github.com/anylabs/mendel). If you have
 questions unanswered by the documentation please open an issue pointing out how
 the documentation was unclear and we will do our best to make it better!
 
@@ -45,7 +45,7 @@ When you open an issue please provide:
 
 ## License
 
-Copyright (c) 2010-2017 Anylabs (hej@anylabs.co)
+Copyright (c) 2010-2019 Anylabs (hej@anylabs.co)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
